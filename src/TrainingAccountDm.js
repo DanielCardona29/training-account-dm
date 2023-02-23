@@ -37,7 +37,7 @@ export class TrainingAccountDm extends LitElement {
         this._fireEvent('accounts-success', success);
       },
       error => {
-        this._fireEvent('accounts-error',   );
+        this._fireEvent('accounts-error',  error );
       }
     );
 
