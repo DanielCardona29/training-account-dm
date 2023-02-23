@@ -1,7 +1,7 @@
 import { LitElement, html, } from 'lit-element';
 
 
-import { BGADPAccountsGetV0 } from '@cells-components/bgadp-accounts-v0/bgadp-accounts-v0'
+import { BGADPAccountsGetV0, BGADPAccountsAccountTransactionsGetV0 } from '@cells-components/bgadp-accounts-v0/bgadp-accounts-v0'
 
 export class TrainingAccountDm extends LitElement {
   static get is() {
@@ -37,7 +37,28 @@ export class TrainingAccountDm extends LitElement {
         this._fireEvent('accounts-success', success);
       },
       error => {
-        this._fireEvent('accounts-error',  error );
+        this._fireEvent('accounts-error', error);
+      }
+    );
+
+  }
+
+
+  getAccountsTransactions(accountId) {
+    const config = {
+      host: this.host,
+      version: this.version,
+      params: { 'account-id': accountId }
+    }
+
+    const dataProvider = new BGADPAccountsAccountTransactionsGetV0(config);
+
+    dataProvider.generateRequest().then(
+      success => {
+        this._fireEvent('accounts-transactions-success', success);
+      },
+      error => {
+        this._fireEvent('accounts-transactions-error', error);
       }
     );
 
